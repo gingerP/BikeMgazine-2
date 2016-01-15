@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta charset="UTF-8">
+        <title>Bike Magazine</title>
+        <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/reset.css" rel="stylesheet">
+        <script type="text/javascript" src="/static/bower/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="/static/bower/handlebars/handlebars.min.js"></script>
+        <script type="text/javascript" src="/static/js/webapp.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="container">
+                <div class="left-container"></div>
+                <div class="right-container"></div>
+                <div class="center-container">
+                    <div id="news-gallery"></div>
+                    <div id="news"></div>
+                </div>
+            </div>
+            <div id="footer"></div>
+            <div id="header">
+                <div id="menu"></div>
+            </div>
+        </div>
+        <script id="htMenuL1" type="text/x-handlebars-template">
+            <ul>
+                {{#each menuItems}}
+                <li class="menu-item menu-item-l1 menu-item-color{{math @index "+" 1}}">
+                    <div class="menu-line"></div>
+                    <a href="{{href}}"><strong>{{name}}</strong></a>
+                    <ul>
+                        {{#each children}}
+                        {{> htMenuL2}}
+                        {{/each }}
+                    </ul>
+                </li>
+                {{/each}}
+            </ul>
+        </script>
+        <script id="htMenuL2" type="text/x-handlebars-template">
+            <li class="menu-item menu-item-l2">
+                <a href="{{href}}">{{name}}</a>
+                <ul>
+                    {{#each children}}
+                    {{> htMenuL2}}
+                    {{/each }}
+                </ul>
+            </li>
+        </script>
+        <script id="htNews" type="text/x-handlebars-template">
+            {{#each news}}
+            <div class="news-item news-item-size-x{{size}}">
+                <a href="{{href}}">
+                    <img src="/static/images/news/{{image}}">
+                    <div class="news-title">{{title}}</div>
+                </a>
+                <div class="news-short-text">{{shortText}}</div>
+            </div>
+            {{/each}}
+        </script>
+        <script id="htNewsGallery" type="text/x-handlebars-template">
+            <ul class="news-gallery-container-scroll">
+                {{#each news}}
+                <li class="news-gallery-item news-gallery-item-x{{size}}">
+                    <a href="{{href}}" class="news-gallery-link">
+                        <img src="/static/images/news/{{image}}">
+                        <div class="news-gallery-label">
+                            <div class="news-gallery-title"><h2>{{title}}</h2></div>
+                            <div class="news-gallery-item-date"><h2>{{date}}</h2></div>
+                            <div class="news-gallery-short-text">{{shortText}}</div>
+                        </div>
+                    </a>
+                </li>
+                {{/each}}
+            </ul>
+            <div class="news-container-title">News</div>
+        </script>
+    </body>
+</html>

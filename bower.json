@@ -6,7 +6,6 @@
   "private": true,
   "dependencies": {
     "jquery": "~2.1.1",
-    "angular": "1.4.8",
-    "angular-resource": "1.4.x"
+    "handlebars" : "4.0.5"
   }
 }

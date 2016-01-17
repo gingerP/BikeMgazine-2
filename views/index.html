@@ -16,8 +16,17 @@
                 <div class="left-container"></div>
                 <div class="right-container"></div>
                 <div class="center-container">
-                    <div id="news-gallery"></div>
-                    <div id="news"></div>
+                    <div class="switch-blank-pages">
+                        <div class="blank-page"></div>
+                        <div class="blank-page"></div>
+                        <div class="blank-page"></div>
+                    </div>
+                    <div class="switch-container">
+                        <div id="news" class="filled-page"></div>
+                        <div id="catalog" class="filled-page"></div>
+                        <div id="training" class="filled-page"></div>
+                        <div id="beginners" class="filled-page active"></div>
+                    </div>
                 </div>
             </div>
             <div id="footer"></div>
@@ -28,9 +37,9 @@
         <script id="htMenuL1" type="text/x-handlebars-template">
             <ul>
                 {{#each menuItems}}
-                <li class="menu-item menu-item-l1 menu-item-color{{math @index "+" 1}}">
+                <li class="menu-item menu-item-l1 menu-item-color{{math @index '+' 1}}">
                     <div class="menu-line"></div>
-                    <a href="{{href}}"><strong>{{name}}</strong></a>
+                    <a class="menu-item-link" data-id="{{id}}" href="#_{{href}}"><strong>{{name}}</strong></a>
                     <ul>
                         {{#each children}}
                         {{> htMenuL2}}
@@ -76,7 +85,12 @@
                 </li>
                 {{/each}}
             </ul>
-            <div class="news-container-title">News</div>
+            <div class="info-block-title-container" style="width: 100px; height: 50px; background-color: #fff">{{containerName}}</div>
+            <!--<svg class="info-block-title-container" height="210" width="500">
+                <polygon points="0,0 250,0 0,100" style="fill:#fff;stroke:#fff;stroke-width:1">
+                    <text x="0" y="50" font-family="Verdana" font-size="55" fill="blue" >{{containerName}}</text>
+                </polygon>
+            </svg>-->
         </script>
     </body>
 </html>

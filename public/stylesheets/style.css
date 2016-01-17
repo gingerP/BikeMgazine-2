@@ -82,103 +82,118 @@ body {
 }
 #menu .menu-item .menu-line {
   position: absolute;
-  width: 100%;
+  width: 0%;
   height: 5px;
   bottom: 0px;
   left: 0;
   background-color: red;
   opacity: 0;
-  transition: opacity .2s;
+  transition: opacity .2s, width .2s;
 }
 #menu .menu-item:hover.menu-item-color1 a {
   color: #f2671f;
 }
 #menu .menu-item:hover.menu-item-color1 .menu-line {
   background-color: #f2671f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color2 a {
   color: #c91b26;
 }
 #menu .menu-item:hover.menu-item-color2 .menu-line {
   background-color: #c91b26;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color3 a {
   color: #9c0f5f;
 }
 #menu .menu-item:hover.menu-item-color3 .menu-line {
   background-color: #9c0f5f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color4 a {
   color: #9c0f5f;
 }
 #menu .menu-item:hover.menu-item-color4 .menu-line {
   background-color: #9c0f5f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color5 a {
   color: #60047a;
 }
 #menu .menu-item:hover.menu-item-color5 .menu-line {
   background-color: #60047a;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color6 a {
   color: #f2671f;
 }
 #menu .menu-item:hover.menu-item-color6 .menu-line {
   background-color: #f2671f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color7 a {
   color: #c91b26;
 }
 #menu .menu-item:hover.menu-item-color7 .menu-line {
   background-color: #c91b26;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color8 a {
   color: #9c0f5f;
 }
 #menu .menu-item:hover.menu-item-color8 .menu-line {
   background-color: #9c0f5f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color9 a {
   color: #9c0f5f;
 }
 #menu .menu-item:hover.menu-item-color9 .menu-line {
   background-color: #9c0f5f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color10 a {
   color: #60047a;
 }
 #menu .menu-item:hover.menu-item-color10 .menu-line {
   background-color: #60047a;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color11 a {
   color: #f2671f;
 }
 #menu .menu-item:hover.menu-item-color11 .menu-line {
   background-color: #f2671f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color12 a {
   color: #c91b26;
 }
 #menu .menu-item:hover.menu-item-color12 .menu-line {
   background-color: #c91b26;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color13 a {
   color: #9c0f5f;
 }
 #menu .menu-item:hover.menu-item-color13 .menu-line {
   background-color: #9c0f5f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color14 a {
   color: #9c0f5f;
 }
 #menu .menu-item:hover.menu-item-color14 .menu-line {
   background-color: #9c0f5f;
+  width: 100%;
 }
 #menu .menu-item:hover.menu-item-color15 a {
   color: #60047a;
 }
 #menu .menu-item:hover.menu-item-color15 .menu-line {
   background-color: #60047a;
+  width: 100%;
 }
 #menu .menu-item:hover .menu-line {
   opacity: 1;
@@ -223,16 +238,15 @@ body {
   top: -10px;
 }
 .filled-page.hidden {
-  opacity: 1;
   top: 10px;
   transform: scale(1);
-  transition: top 1s, transform 1s, opacity 1s;
+  transition: top 1ms, transform 1ms;
 }
 .filled-page.active {
   opacity: 1;
   top: 0px;
   transform: scale(1);
-  transition: top 1s, transform 1s, opacity 1s;
+  transition: top 1s, transform 1s;
 }
 #catalog,
 #training,
@@ -313,7 +327,7 @@ body {
 #training .news-gallery-item:hover img,
 #beginners .news-gallery-item:hover img,
 #news .news-gallery-item:hover img {
-  transform: scale(2.5);
+  transform: scale(2);
   transition: transform 10s;
 }
 #catalog .news-gallery-item-x1,

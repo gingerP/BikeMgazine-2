@@ -37,21 +37,34 @@ function initMenuEvents(menu) {
             var doc = document.querySelector('[data-id=' + item.id + ']');
             if (doc) {
                 doc.addEventListener('click', function(event) {
+                    //TODO to refactoring
                     //not empty item
                     var emptyBlock;
                     var targetView = document.getElementById(item.id);
                     var parent;
-                    $('.filled-page.active').removeClass('active').addClass('hidden');
-                    targetView.className += ' active';
-                    //empty item
-                    emptyBlock = document.querySelector('.switch-blank-pages>*:last-child');
-                    parent = emptyBlock.parentNode;
-                    parent.removeChild(emptyBlock);
-                    parent.insertBefore(emptyBlock, parent.childNodes[0]);
+                    var current = document.querySelector('.filled-page.active');
+                    if (!current || current.id !== item.id) {
+                        targetView.className += ' active';
+                        $(current).addClass('hidden').removeClass('active');
+                        //empty item
+                        emptyBlock = document.querySelector('.switch-blank-pages>*:last-child');
+                        parent = emptyBlock.parentNode;
+                        parent.removeChild(emptyBlock);
+                        parent.insertBefore(emptyBlock, parent.childNodes[0]);
+                    }
                 })
             }
         });
     }
+}
+
+function initAnimation() {
+    $('.filled-page').on("webkitTransitionEnd", function() {
+        var parentNode = this.parentNode;
+        parentNode.removeChild(this);
+        parentNode.appendChild(this);
+        $(this).removeClass('hidden');
+    });
 }
 
 function initLoginPopup() {
@@ -172,12 +185,6 @@ function initBeginnersBlock() {
     ];
     var newsGallHandler = Handlebars.compile(document.getElementById('htNewsGallery').innerHTML);
     document.getElementById('beginners').innerHTML += newsGallHandler({news: news, containerName: 'Beginners'});
-}
-
-function initAnimation() {
-    $('.filled-page').on("webkitAnimationEnd oanimationend msAnimationEnd animationend", function() {
-        this.removeClass('hidden');
-    });
 }
 
 function iniHelpers() {

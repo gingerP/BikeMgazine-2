@@ -20,6 +20,7 @@
                         <div class="blank-page"></div>
                         <div class="blank-page"></div>
                         <div class="blank-page"></div>
+                        <div class="blank-page"></div>
                     </div>
                     <div class="switch-container">
                         <div id="news" class="filled-page"></div>
@@ -32,6 +33,36 @@
             <div id="footer"></div>
             <div id="header">
                 <div id="menu"></div>
+            </div>
+        </div>
+        <div class="blocker"></div>
+        <div id="login">
+            <div class="login-headers">
+                <div class="signin-header active">Sign in</div>
+                <div class="signup-header">Sign up</div>
+                <div class="line"></div>
+            </div>
+            <div id="signin-tab">
+                <form>
+                    <label for="sign-login">Login</label>
+                    <input type="text" id="sign-login">
+                    <label for="sign-pass">Login</label>
+                    <input type="password" id="sign-pass">
+                    <label for="remember">Remember</label>
+                    <input type="checkbox" id="remember">
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+            <div id="signup-tab">
+                <form>
+                    <label for="e_mail">E-mail</label>
+                    <input type="text" id="e_mail">
+                    <label for="pass">Password</label>
+                    <input type="password" id="pass">
+                    <label for="rep_pass">Repeat Password</label>
+                    <input type="password" id="rep_pass">
+                    <input type="submit" value="Create">
+                </form>
             </div>
         </div>
         <script id="htMenuL1" type="text/x-handlebars-template">
@@ -71,9 +102,34 @@
             {{/each}}
         </script>
         <script id="htNewsGallery" type="text/x-handlebars-template">
-            <ul class="news-gallery-container-scroll">
-                {{#each news}}
-                <li class="news-gallery-item news-gallery-item-x{{size}}">
+            <div class="info-block-list-container">
+                <div class="news-sub-container-title news-sub-container-title-{{relIndex}}">{{subMenu.name}}</div>
+                <ul>
+                    {{#each subMenu.menu}}
+                    <li class="news-sub-item">
+                        <a href="#{{id}}" class="news-sub-link">
+                            <div class="news-sub-label">
+                                <span class="news-sub-date">{{date}}</span>
+                                <span class="news-sub-title"><h2>{{title}}</h2></span>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                    <div></div>
+                    <div></div>
+                </ul>
+            </div>
+            <div class="news-gallery-scroll-placeholder">
+                <div class="news-gallery-container-scroll">
+                    {{#columnLoop subMenu.menu}}
+                    {{/columnLoop}}
+                </div>
+            </div>
+        </script>
+        <script id="htNewsGalleryBigItemColumn" type="text/x-handlebars-template">
+            <div class="news-gallery-item-column">
+                {{#each items}}
+                <div id="{{id}}"class="news-gallery-item news-gallery-item-x{{size}}">
                     <a href="{{href}}" class="news-gallery-link">
                         <img src="/static/images/news/{{image}}">
                         <div class="news-gallery-label">
@@ -82,13 +138,9 @@
                             <div class="news-gallery-short-text">{{shortText}}</div>
                         </div>
                     </a>
-                </li>
+                </div>
                 {{/each}}
-            </ul>
-            <svg class="info-block-title-container" height="210" width="500">
-                <polygon points="0,0 250,0 0,100" style="fill:#fff;stroke:#fff;stroke-width:1"></polygon>
-                <text x="0" y="50" font-family="Verdana" font-size="55" fill="blue" >{{containerName}}</text>
-            </svg>
+            </div>
         </script>
     </body>
 </html>

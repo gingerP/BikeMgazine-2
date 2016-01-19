@@ -10,7 +10,7 @@
         <script type="text/javascript" src="/static/bower/handlebars/handlebars.min.js"></script>
         <script type="text/javascript" src="/static/js/webapp.js"></script>
     </head>
-    <body>
+    <body class="blocker-unactive">
         <div id="wrapper">
             <div id="container">
                 <div class="left-container"></div>
@@ -36,32 +36,47 @@
             </div>
         </div>
         <div class="blocker"></div>
-        <div id="login">
-            <div class="login-headers">
-                <div class="signin-header active">Sign in</div>
-                <div class="signup-header">Sign up</div>
+        <div id="login" class="switch-login-pages">
+            <div class="close-btn"></div>
+            <div class="login-blank-page"></div>
+            <div class="signin-tab active login-blank-page">
+                <div class="login-tab">Sign-in</div>
                 <div class="line"></div>
-            </div>
-            <div id="signin-tab">
                 <form>
-                    <label for="sign-login">Login</label>
-                    <input type="text" id="sign-login">
-                    <label for="sign-pass">Login</label>
-                    <input type="password" id="sign-pass">
-                    <label for="remember">Remember</label>
-                    <input type="checkbox" id="remember">
-                    <input type="submit" value="Login">
+                    <input type="text" id="sign-login" placeholder="Login" class="form-field">
+                    <input type="password" id="sign-pass" placeholder="Password" class="form-field">
+                    <label for="remember">
+                        <input type="checkbox" id="remember" class="form-field">
+                        <div><div></div></div>
+                        <span>Remember me</span>
+                    </label>
+                    <input type="submit" id="signinbtn" value="Login" class="form-field">
                 </form>
             </div>
-            <div id="signup-tab">
+            <div class="signup-tab login-blank-page">
+                <div class="login-tab">Sign-up</div>
+                <div class="line"></div>
                 <form>
-                    <label for="e_mail">E-mail</label>
-                    <input type="text" id="e_mail">
-                    <label for="pass">Password</label>
-                    <input type="password" id="pass">
-                    <label for="rep_pass">Repeat Password</label>
-                    <input type="password" id="rep_pass">
-                    <input type="submit" value="Create">
+                    <div class="steps">
+                        <div class="steps-placeholder">
+                            <div class="step1">
+                                <input type="text" id="e_mail" placeholder="E-mail" class="form-field">
+                                <input type="text" id="pass" placeholder="Password" class="form-field">
+                                <input type="text" id="rep_pass" placeholder="Repeat Password" class="form-field">
+                            </div>
+                            <div class="step2">
+                                <input type="text" id="birthday" placeholder="Birthday" class="form-field">
+                                <input type="text" id="age" placeholder="Age" class="form-field">
+                                <label for="robot">
+                                    <input type="checkbox" id="robot" class="form-field">
+                                    <div><div></div></div>
+                                    <span>I am not a robot.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" id="next" value="Next" class="form-field">
+                    <input type="submit" id="signupbtn" value="Create" class="form-field">
                 </form>
             </div>
         </div>
@@ -70,7 +85,7 @@
                 {{#each menuItems}}
                 <li class="menu-item menu-item-l1 menu-item-color{{math @index '+' 1}}">
                     <div class="menu-line"></div>
-                    <a class="menu-item-link" data-id="{{id}}" href="#_{{href}}"><strong>{{name}}</strong></a>
+                    <a class="menu-item-link text-menu" data-id="{{id}}" href="#_{{href}}" ><strong>{{name}}</strong></a>
                     <ul>
                         {{#each children}}
                         {{> htMenuL2}}
@@ -94,7 +109,7 @@
             {{#each news}}
             <div class="news-item news-item-size-x{{size}}">
                 <a href="{{href}}">
-                    <img src="/static/images/news/{{image}}">
+                    <img src="/static/images/news/{{image}}" class="image">
                     <div class="news-title">{{title}}</div>
                 </a>
                 <div class="news-short-text">{{shortText}}</div>
@@ -103,14 +118,14 @@
         </script>
         <script id="htNewsGallery" type="text/x-handlebars-template">
             <div class="info-block-list-container">
-                <div class="news-sub-container-title news-sub-container-title-{{relIndex}}">{{subMenu.name}}</div>
+                <div class="news-sub-container-title news-sub-container-title-{{relIndex}} text-sub-container-title">{{subMenu.name}}</div>
                 <ul>
                     {{#each subMenu.menu}}
                     <li class="news-sub-item">
                         <a href="#{{id}}" class="news-sub-link">
                             <div class="news-sub-label">
-                                <span class="news-sub-date">{{date}}</span>
-                                <span class="news-sub-title"><h2>{{title}}</h2></span>
+                                <span class="news-sub-date text-news-sub-date">{{date}}</span>
+                                <span class="news-sub-title text-news-sub-title"><h2>{{title}}</h2></span>
                             </div>
                         </a>
                     </li>
@@ -131,11 +146,11 @@
                 {{#each items}}
                 <div id="{{id}}"class="news-gallery-item news-gallery-item-x{{size}}">
                     <a href="{{href}}" class="news-gallery-link">
-                        <img src="/static/images/news/{{image}}">
+                        <img src="/static/images/news/{{image}}" class="image">
                         <div class="news-gallery-label">
-                            <div class="news-gallery-title"><h2>{{title}}</h2></div>
-                            <div class="news-gallery-item-date"><h2>{{date}}</h2></div>
-                            <div class="news-gallery-short-text">{{shortText}}</div>
+                            <div class="news-gallery-title text-news-title"><h2>{{title}}</h2></div>
+                            <div class="news-gallery-item-date text-news-date"><h2>{{date}}</h2></div>
+                            <div class="news-gallery-short-text text-news-short">{{shortText}}</div>
                         </div>
                     </a>
                 </div>

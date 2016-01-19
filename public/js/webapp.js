@@ -68,9 +68,10 @@ function getCatalogData() {
 }
 
 function init() {
+    var loginModule;
     iniHelpers();
-    initMenu();
-    initLoginPopup();
+    loginModule = initLoginPopup();
+    initMenu(loginModule);
     initNewsGallery();
     initCatalog();
     initTraining();
@@ -79,7 +80,7 @@ function init() {
     initLogin();
 }
 
-function initMenu() {
+function initMenu(loginModule) {
     var menu = [
         {name: 'News', href: 'news', id: 'news'},
         {name: 'Catalog', href: 'catalog', id: 'catalog'},
@@ -89,36 +90,61 @@ function initMenu() {
             {name: 'Scott', href: 'Scott'},
             {name: 'Author', href: 'Author'},
             {name: 'Giant', href: 'Giant'}
-        ]}
+        ]},
+        {id: '_spacer_'},
+        {name: 'Sign-in', id: 'signin'},
+        {name: 'Sign-up', id: 'signup'},
+        {name: 'Exit', id: 'exit'}
     ];
     var handler = Handlebars.compile(document.getElementById('htMenuL1').innerHTML);
     Handlebars.registerPartial( "htMenuL2", document.getElementById('htMenuL2').innerHTML);
     document.getElementById('menu').innerHTML += handler({menuItems: menu});
-    initMenuEvents(menu);
+    initMenuEvents(menu, loginModule);
 }
 
-function initMenuEvents(menu) {
+function initMenuEvents(menu, loginModule) {
+    function isStandartMenu(id) {
+        return ['signin', 'signup', 'exit', 'spacer'].indexOf(id) < 0;
+    }
+    function isLoginMenu(id) {
+        return ['signin', 'signup', 'exit'].indexOf(id) > -1;
+    }
     if (menu && menu.length) {
         menu.forEach(function(item) {
+            var $loginBlock = $('#login');
+            var $blocker = $('.blocker');
+            var $signinBlock = $('.signin-tab', $loginBlock);
+            var $signupBlock = $('.signup-tab', $loginBlock);
             var doc = document.querySelector('[data-id=' + item.id + ']');
-            if (doc) {
-                doc.addEventListener('click', function(event) {
-                    //TODO to refactoring
-                    //not empty item
-                    var emptyBlock;
-                    var targetView = document.getElementById(item.id);
-                    var parent;
-                    var current = document.querySelector('.filled-page.active');
-                    if (!current || current.id !== item.id) {
-                        targetView.className += ' active';
-                        $(current).addClass('hidden').removeClass('active');
-                        //empty item
-                        emptyBlock = document.querySelector('.switch-blank-pages>*:last-child');
-                        parent = emptyBlock.parentNode;
-                        parent.removeChild(emptyBlock);
-                        parent.insertBefore(emptyBlock, parent.childNodes[0]);
+
+            if (isStandartMenu(item.id)) {
+                if (doc) {
+                    doc.addEventListener('click', function (event) {
+                        //TODO to refactoring
+                        //not empty item
+                        var emptyBlock;
+                        var targetView = document.getElementById(item.id);
+                        var parent;
+                        var current = document.querySelector('.filled-page.active');
+                        if (!current || current.id !== item.id) {
+                            targetView.className += ' active';
+                            $(current).addClass('hidden').removeClass('active');
+                            //empty item
+                            emptyBlock = document.querySelector('.switch-blank-pages>*:last-child');
+                            parent = emptyBlock.parentNode;
+                            parent.removeChild(emptyBlock);
+                            parent.insertBefore(emptyBlock, parent.childNodes[0]);
+                        }
+                    })
+                }
+            } else if (isLoginMenu(item.id)) {
+                doc.addEventListener('click', function (event) {
+                    if (item.id === 'signin') {
+                        loginModule.makeActiveSignin();
+                    } else if (item.id === 'signup') {
+                        loginModule.makeActiveSignup();
                     }
-                })
+                });
             }
         });
     }
@@ -137,7 +163,58 @@ function initAnimation() {
 }
 
 function initLoginPopup() {
+    var api;
+    var $tabs = $('#login .login-blank-page');
+    var $blocker = $('.blocker');
+    var $login = $('#login');
+    var $signin = $('.signin-tab', $login);
+    var $signup = $('.signup-tab', $login);
+    var $step1 = $('.step1', $signup);
+    var $step2 = $('.step2', $signup);
+    var $body = $(document.body);
+    function makeActive(target) {
+        var parent;
+        $blocker.addClass('visible');
+        $login.addClass('visible');
+        $body.addClass('blocker-active');
+        $tabs.removeClass('active');
+        $(target).addClass('active');
+        parent = target.parentNode;
+        parent.removeChild(target);
+        parent.appendChild(target);
+    }
+    function next(){
 
+    }
+    $('.signin-tab .login-tab, .signup-tab .login-tab').on('click', function(event) {
+        makeActive(this.parentNode);
+    });
+    $('#login .close-btn').on('click', function() {
+        $blocker.removeClass('visible');
+        $login.removeClass('visible');
+        $body.removeClass('blocker-active');
+    });
+    $('#next').on('click', function(event) {
+        $step1.removeClass('active');
+        $step2.addClass('active');
+    });
+
+    api = {
+        makeActiveSignin: function() {
+            makeActive($signin.get(0));
+            return api;
+        },
+        makeActiveSignup: function() {
+            makeActive($signup.get(0));
+            return api;
+        },
+        next: function() {
+
+            return api;
+        }
+
+    };
+    return api;
 }
 
 function initNewsGallery() {
@@ -178,13 +255,22 @@ function initBeginnersBlock() {
 }
 
 function initLogin() {
-    var $tabs = $('.signin-header, .signup-header');
-    $tabs.on('click', function(event) {
+    var $headers = $('.signin-header, .signup-header');
+    var $signinTab = $('.signin-tab');
+    var $signupTab = $('.signup-tab');
+    $headers.on('click', function(event) {
         var $target = $(this);
         var $prevActive = $("#login .login-headers>.active");
         if (!$target.hasClass('active')) {
-            $target.addClass('active')
+            $target.addClass('active');
             $prevActive.removeClass('active');
+        }
+        if ($target.hasClass('signin-header')) {
+            $signinTab.addClass('active');
+            $signupTab.removeClass('active');
+        } else if ($target.hasClass('signup-header')) {
+            $signupTab.addClass('active');
+            $signinTab.removeClass('active');
         }
     });
 }

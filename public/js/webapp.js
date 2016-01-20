@@ -96,7 +96,7 @@ function initMenu(loginModule) {
         {name: 'Sign-up', id: 'signup'},
         {name: 'Exit', id: 'exit'}
     ];
-    var handler = Handlebars.compile(document.getElementById('htMenuL1').innerHTML);
+    var handler = Handlebars.compile(document.getElementById('htMenuL1Container').innerHTML);
     Handlebars.registerPartial( "htMenuL2", document.getElementById('htMenuL2').innerHTML);
     document.getElementById('menu').innerHTML += handler({menuItems: menu});
     initMenuEvents(menu, loginModule);
@@ -291,6 +291,29 @@ function iniHelpers() {
             "/": lvalue / rvalue,
             "%": lvalue % rvalue
         }[operator];
+    });
+
+    Handlebars.registerHelper("menu", function(context) {
+        var result = '';
+        var spacer;
+        var menuL1;
+        var index = 0;
+        var item;
+        if (context && context.length) {
+            spacer = Handlebars.compile(document.getElementById('htMenuSpacer').innerHTML);
+            menuL1 = Handlebars.compile(document.getElementById('htMenuL1').innerHTML);
+            for (;index < context.length;index++) {
+                item = context[index];
+                if (item.id === '_spacer_') {
+                    result += spacer(item);
+                } else {
+                    //TODO
+                    item.index = index + 1;
+                    result += menuL1(item);
+                }
+            }
+        }
+        return result;
     });
 
     Handlebars.registerHelper("columnLoop", function(context, options) {

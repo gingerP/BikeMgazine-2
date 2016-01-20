@@ -1,6 +1,6 @@
 {
   "ssl": {
-    "enabled": true,
+    "enabled": false,
     "certDir": "d:\\ssl\\"
   },
   "httpPort": 8080,

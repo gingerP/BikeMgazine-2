@@ -30,7 +30,9 @@
                     </div>
                 </div>
             </div>
-            <div id="footer"></div>
+            <div id="footer">
+                <div class="dev-info-block">new.vinni@gmail.com</div>
+            </div>
             <div id="header">
                 <div id="menu"></div>
             </div>
@@ -57,43 +59,39 @@
                 <div class="login-tab">Sign-up</div>
                 <div class="line"></div>
                 <form>
-                    <div class="steps">
-                        <div class="steps-placeholder">
-                            <div class="step1">
-                                <input type="text" id="e_mail" placeholder="E-mail" class="form-field">
-                                <input type="text" id="pass" placeholder="Password" class="form-field">
-                                <input type="text" id="rep_pass" placeholder="Repeat Password" class="form-field">
-                            </div>
-                            <div class="step2">
-                                <input type="text" id="birthday" placeholder="Birthday" class="form-field">
-                                <input type="text" id="age" placeholder="Age" class="form-field">
-                                <label for="robot">
-                                    <input type="checkbox" id="robot" class="form-field">
-                                    <div><div></div></div>
-                                    <span>I am not a robot.</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <input type="submit" id="next" value="Next" class="form-field">
+                    <input type="text" id="e_mail" placeholder="E-mail" class="form-field">
+                    <input type="text" id="pass" placeholder="Password" class="form-field">
+                    <input type="text" id="rep_pass" placeholder="Repeat Password" class="form-field">
+                    <input type="text" id="birthday" placeholder="Birthday" class="form-field">
+                    <input type="text" id="age" placeholder="Age" class="form-field">
+                    <label for="robot">
+                        <input type="checkbox" id="robot" class="form-field">
+                        <div><div></div></div>
+                        <span>I am not a robot.</span>
+                    </label>
                     <input type="submit" id="signupbtn" value="Create" class="form-field">
                 </form>
             </div>
         </div>
-        <script id="htMenuL1" type="text/x-handlebars-template">
+        <script id="htMenuSpacer" type="text/x-handlebars-template">
+            <li class="menu-item menu-item-l1 menu-spacer"></li>
+        </script>
+        <script id="htMenuL1Container" type="text/x-handlebars-template">
             <ul>
-                {{#each menuItems}}
-                <li class="menu-item menu-item-l1 menu-item-color{{math @index '+' 1}}">
-                    <div class="menu-line"></div>
-                    <a class="menu-item-link text-menu" data-id="{{id}}" href="#_{{href}}" ><strong>{{name}}</strong></a>
-                    <ul>
-                        {{#each children}}
-                        {{> htMenuL2}}
-                        {{/each }}
-                    </ul>
-                </li>
-                {{/each}}
+                {{#menu menuItems}}
+                {{/menu}}
             </ul>
+        </script>
+        <script id="htMenuL1" type="text/x-handlebars-template">
+            <li class="menu-item menu-item-l1 menu-item-color{{index}}">
+                <div class="menu-line"></div>
+                <a class="menu-item-link text-menu" data-id="{{id}}" href="#_{{href}}" ><strong>{{name}}</strong></a>
+                <ul>
+                    {{#each children}}
+                    {{> htMenuL2}}
+                    {{/each }}
+                </ul>
+            </li>
         </script>
         <script id="htMenuL2" type="text/x-handlebars-template">
             <li class="menu-item menu-item-l2">
